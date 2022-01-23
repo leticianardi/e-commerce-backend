@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { RAW } = require('sequelize/types/lib/query-types');
 const { Tag, Product, ProductTag } = require('../../models');
 
 // find all tags
