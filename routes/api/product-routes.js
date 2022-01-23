@@ -7,7 +7,7 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 router.get("/", (req, res) => {
   // find all products
   Product.findAll({
-    // attributes: ["id", "product_name", "price", "stock", "category_id"],
+    attributes: ["id", "product_name", "price", "stock", "category_id"],
     // include its associated Category and Tag data
     include: [
       Category,
@@ -32,7 +32,7 @@ router.get("/:id", (req, res) => {
       id: req.params.id,
     },
     // include its associated Category and Tag data
-    // attributes: ["id", "product_name", "price", "stock", "category_id"],
+    attributes: ["id", "product_name", "price", "stock", "category_id"],
     include: [
       Category,
       {
@@ -124,6 +124,19 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((products) => {
+      console.log(product);
+      res.json(products);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
